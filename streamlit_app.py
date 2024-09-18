@@ -41,7 +41,7 @@ def view_sku_dictionary():
             **SKU**: {row['sku']}  
             **Description**: {row['description']}  
             **Category**: {row['category']}  
-            **Supplier URL**: ({row['supplier_url']})
+            **Supplier URL**: {row['supplier_url']}
         """, unsafe_allow_html=True)
         st.write("---")  # Horizontal separator
 
