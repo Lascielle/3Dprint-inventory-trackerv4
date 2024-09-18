@@ -31,8 +31,15 @@ conn.commit()
 # Function to display SKU dictionary
 def view_sku_dictionary():
     st.header('SKU Dictionary')
-    skus = pd.read_sql_query("SELECT * FROM sku_dictionary", conn)
-    st.write(skus)
+
+    # Fetch the data
+    skus = pd.read_sql_query("SELECT sku, description, category, supplier_url FROM sku_dictionary", conn)
+    
+    # Create clickable links for the supplier_url column
+    skus['supplier_url'] = skus['supplier_url'].apply(lambda x: f"[Link]({x})")
+    
+    # Display the data without the id/index columns, and with clickable links
+    st.write(skus.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 # Function to add a new SKU
 def add_sku():
