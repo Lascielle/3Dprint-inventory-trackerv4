@@ -37,12 +37,12 @@ def view_sku_dictionary():
 # Function to add a new SKU
 def add_sku():
     st.subheader('Add SKU')
-    sku = st.text_input('SKU')
-    description = st.text_input('Description')
-    category = st.selectbox('Category', ['filament', 'consumable', 'wear part'])
-    supplier_url = st.text_input('Supplier URL')
+    sku = st.text_input('SKU', key='add_sku')
+    description = st.text_input('Description', key='add_description')
+    category = st.selectbox('Category', ['filament', 'consumable', 'wear part'], key='add_category')
+    supplier_url = st.text_input('Supplier URL', key='add_supplier_url')
 
-    if st.button('Add SKU'):
+    if st.button('Add SKU', key='add_button'):
         c.execute('INSERT INTO sku_dictionary (sku, description, category, supplier_url) VALUES (?, ?, ?, ?)', 
                   (sku, description, category, supplier_url))
         conn.commit()
@@ -52,22 +52,23 @@ def add_sku():
 def edit_sku():
     st.subheader('Edit/Delete SKU')
     skus = pd.read_sql_query("SELECT * FROM sku_dictionary", conn)
-    sku_id = st.selectbox('Select SKU to edit/delete', skus['id'].values)
+    sku_id = st.selectbox('Select SKU to edit/delete', skus['id'].values, key='edit_sku_select')
     
     if sku_id:
         sku_data = c.execute('SELECT * FROM sku_dictionary WHERE id=?', (sku_id,)).fetchone()
-        sku = st.text_input('SKU', value=sku_data[1])
-        description = st.text_input('Description', value=sku_data[2])
-        category = st.selectbox('Category', ['filament', 'consumable', 'wear part'], index=['filament', 'consumable', 'wear part'].index(sku_data[3]))
-        supplier_url = st.text_input('Supplier URL', value=sku_data[4])
+        sku = st.text_input('SKU', value=sku_data[1], key='edit_sku')
+        description = st.text_input('Description', value=sku_data[2], key='edit_description')
+        category = st.selectbox('Category', ['filament', 'consumable', 'wear part'], 
+                                index=['filament', 'consumable', 'wear part'].index(sku_data[3]), key='edit_category')
+        supplier_url = st.text_input('Supplier URL', value=sku_data[4], key='edit_supplier_url')
         
-        if st.button('Update SKU'):
+        if st.button('Update SKU', key='update_button'):
             c.execute('UPDATE sku_dictionary SET sku=?, description=?, category=?, supplier_url=? WHERE id=?',
                       (sku, description, category, supplier_url, sku_id))
             conn.commit()
             st.success('SKU updated successfully!')
 
-        if st.button('Delete SKU'):
+        if st.button('Delete SKU', key='delete_button'):
             c.execute('DELETE FROM sku_dictionary WHERE id=?', (sku_id,))
             conn.commit()
             st.success('SKU deleted successfully!')
@@ -76,11 +77,11 @@ def edit_sku():
 def transact_inventory():
     st.header('Transact Inventory')
     skus = pd.read_sql_query("SELECT sku, description FROM sku_dictionary", conn)
-    sku = st.selectbox('Select SKU', skus['sku'].values)
-    transaction_type = st.radio('Transaction Type', ['Receive', 'Remove'])
-    quantity = st.number_input('Quantity', min_value=1, step=1)
+    sku = st.selectbox('Select SKU', skus['sku'].values, key='transact_sku')
+    transaction_type = st.radio('Transaction Type', ['Receive', 'Remove'], key='transact_type')
+    quantity = st.number_input('Quantity', min_value=1, step=1, key='transact_quantity')
 
-    if st.button('Submit'):
+    if st.button('Submit', key='transact_submit'):
         # Check current inventory for the selected SKU
         current_qty = c.execute('SELECT quantity FROM inventory WHERE sku=?', (sku,)).fetchone()
         
