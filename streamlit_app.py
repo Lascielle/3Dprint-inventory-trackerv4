@@ -113,18 +113,26 @@ def view_inventory():
     ''', conn)
     st.write(inventory_data)
 
-# Navigation to handle the app's different functionalities
-if __name__ == '__main__':
-    st.sidebar.title('Navigation')
-    page = st.sidebar.selectbox('Select Page', ['View SKU Dictionary', 'Add SKU', 'Edit/Delete SKU', 'Transact Inventory', 'View Inventory'])
-
-    if page == 'View SKU Dictionary':
+# Top bar navigation
+def top_bar_navigation():
+    tabs = st.tabs(["View SKU Dictionary", "Add SKU", "Edit/Delete SKU", "Transact Inventory", "View Inventory"])
+    
+    with tabs[0]:
         view_sku_dictionary()
-    elif page == 'Add SKU':
+
+    with tabs[1]:
         add_sku()
-    elif page == 'Edit/Delete SKU':
+
+    with tabs[2]:
         edit_sku()
-    elif page == 'Transact Inventory':
+
+    with tabs[3]:
         transact_inventory()
-    elif page == 'View Inventory':
+
+    with tabs[4]:
         view_inventory()
+
+# Run the top bar navigation
+if __name__ == '__main__':
+    st.title('3D Printer Inventory Management')
+    top_bar_navigation()
