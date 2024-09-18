@@ -35,11 +35,13 @@ def view_sku_dictionary():
     # Fetch the data
     skus = pd.read_sql_query("SELECT sku, description, category, supplier_url FROM sku_dictionary", conn)
     
-    # Create clickable links for the supplier_url column
-    skus['supplier_url'] = skus['supplier_url'].apply(lambda x: f"[Link]({x})")
-    
-    # Display the data without the id/index columns, and with clickable links
-    st.write(skus.to_html(escape=False, index=False), unsafe_allow_html=True)
+    # Iterate over rows to display each entry with clickable link
+    for index, row in skus.iterrows():
+        st.markdown(f"**SKU**: {row['sku']}  
+                     **Description**: {row['description']}  
+                     **Category**: {row['category']}  
+                     **Supplier URL**: [Link]({row['supplier_url']})", unsafe_allow_html=True)
+        st.write("---")  # Horizontal separator
 
 # Function to add a new SKU
 def add_sku():
