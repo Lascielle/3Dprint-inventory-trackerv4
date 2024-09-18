@@ -37,11 +37,14 @@ def view_sku_dictionary():
     
     # Iterate over rows to display each entry with clickable link
     for index, row in skus.iterrows():
-        st.markdown(f"**SKU**: {row['sku']}  
-                     **Description**: {row['description']}  
-                     **Category**: {row['category']}  
-                     **Supplier URL**: [Link]({row['supplier_url']})", unsafe_allow_html=True)
+        st.markdown(f"""
+            **SKU**: {row['sku']}  
+            **Description**: {row['description']}  
+            **Category**: {row['category']}  
+            **Supplier URL**: [Link]({row['supplier_url']})
+        """, unsafe_allow_html=True)
         st.write("---")  # Horizontal separator
+
 
 # Function to add a new SKU
 def add_sku():
