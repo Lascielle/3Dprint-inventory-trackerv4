@@ -45,7 +45,6 @@ def view_sku_dictionary():
         """, unsafe_allow_html=True)
         st.write("---")  # Horizontal separator
 
-
 # Function to add a new SKU
 def add_sku():
     st.subheader('Add SKU')
@@ -128,22 +127,22 @@ def view_inventory():
 
 # Top bar navigation
 def top_bar_navigation():
-    tabs = st.tabs(["View SKU Dictionary", "Add SKU", "Edit/Delete SKU", "Transact Inventory", "View Inventory"])
+    tabs = st.tabs(["View Inventory", "Transact Inventory", "View SKU Dictionary", "Add SKU", "Edit/Delete SKU"])
     
     with tabs[0]:
-        view_sku_dictionary()
+        view_inventory()
 
     with tabs[1]:
-        add_sku()
-
-    with tabs[2]:
-        edit_sku()
-
-    with tabs[3]:
         transact_inventory()
 
+    with tabs[2]:
+        view_sku_dictionary()
+
+    with tabs[3]:
+        add_sku()
+
     with tabs[4]:
-        view_inventory()
+        edit_sku()
 
 # Run the top bar navigation
 if __name__ == '__main__':
