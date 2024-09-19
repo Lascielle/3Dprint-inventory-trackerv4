@@ -118,12 +118,26 @@ def transact_inventory():
 # Function to view inventory
 def view_inventory():
     st.header('Inventory')
+
+    # Add CSS to control the width of the table and match the top nav bar
+    st.markdown("""
+        <style>
+        .streamlit-table {
+            width: 100%;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Fetch the inventory data
     inventory_data = pd.read_sql_query('''
         SELECT sku_dictionary.sku, sku_dictionary.description, inventory.quantity 
         FROM inventory 
         JOIN sku_dictionary ON inventory.sku = sku_dictionary.sku
     ''', conn)
+
+    # Display the table without the index
     st.write(inventory_data.to_html(index=False, escape=False), unsafe_allow_html=True)
+
 
 # Top bar navigation
 def top_bar_navigation():
