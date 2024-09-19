@@ -122,8 +122,10 @@ def view_inventory():
     # Add CSS to control the width of the table and match the top nav bar
     st.markdown("""
         <style>
-        .streamlit-table {
+        .full-width-table {
             width: 100%;
+            margin-left: auto;
+            margin-right: auto;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -136,7 +138,8 @@ def view_inventory():
     ''', conn)
 
     # Display the table without the index
-    st.write(inventory_data.to_html(index=False, escape=False), unsafe_allow_html=True)
+    st.markdown(inventory_data.to_html(index=False, escape=False, classes="full-width-table"), unsafe_allow_html=True)
+
 
 
 # Top bar navigation
