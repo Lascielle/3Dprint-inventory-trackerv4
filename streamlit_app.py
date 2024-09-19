@@ -123,7 +123,7 @@ def view_inventory():
         FROM inventory 
         JOIN sku_dictionary ON inventory.sku = sku_dictionary.sku
     ''', conn)
-    st.write(inventory_data)
+    st.write(inventory_data.to_html(index=False, escape=False), unsafe_allow_html=True)
 
 # Top bar navigation
 def top_bar_navigation():
