@@ -53,12 +53,30 @@ def top_bar_navigation():
 def view_inventory():
     conn = sqlite3.connect('printer_inventory.db')
     st.header('Inventory')
+
+    # Fetch the inventory data
     inventory_data = pd.read_sql_query('''
         SELECT sku_dictionary.sku, sku_dictionary.description, inventory.quantity 
         FROM inventory 
         JOIN sku_dictionary ON inventory.sku = sku_dictionary.sku
     ''', conn)
-    st.write(inventory_data)
+
+    # Style the table to make it more visually appealing
+    styled_inventory_data = inventory_data.style \
+        .set_properties(**{
+            'background-color': '#f7f7f7', 'color': 'black', 'border-color': 'black'}) \
+        .highlight_max(subset=['quantity'], color='lightgreen', axis=0) \
+        .highlight_min(subset=['quantity'], color='lightcoral', axis=0) \
+        .set_table_styles([
+            {'selector': 'thead th', 'props': 'background-color: #1f77b4; color: white; font-weight: bold;'},
+            {'selector': 'tbody tr:nth-child(even)', 'props': 'background-color: #f7f7f7;'},
+            {'selector': 'tbody tr:nth-child(odd)', 'props': 'background-color: #ffffff;'}
+        ]) \
+        .set_properties(subset=['sku'], **{'text-align': 'left'}) \
+        .set_properties(subset=['quantity'], **{'text-align': 'right'}) \
+        .set_caption('**Current Inventory Levels**')
+
+    st.dataframe(styled_inventory_data)
 
 def transact_inventory():
     conn = sqlite3.connect('printer_inventory.db')
