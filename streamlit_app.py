@@ -28,7 +28,7 @@ def main_app():
     st.markdown(
         f'''
         <div>
-            <img class="full-width-banner" src="Logo_HarveyPerformance_Primary.png">
+            <img class="full-width-banner" src="./Logo_HarveyPerformance_Primary.png">
         </div>
         ''',
         unsafe_allow_html=True,
