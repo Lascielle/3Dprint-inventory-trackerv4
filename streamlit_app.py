@@ -4,14 +4,13 @@ import sqlite3
 
 # Main app functions (with top bar navigation included)
 def main_app():
-    # Add custom CSS for a full-width image banner
+    # Load image with Streamlit's st.image
+    st.image('./Logo_HarveyPerformance_Primary.png', use_column_width=True)  # Automatically use full column width
+
+    # Title under the image
     st.markdown(
         """
         <style>
-        .full-width-banner {
-            width: 100%;
-            height: auto;
-        }
         .main-title {
             font-size: 36px;
             font-weight: bold;
@@ -24,17 +23,6 @@ def main_app():
         unsafe_allow_html=True,
     )
 
-    # Use HTML to display the image with 100% width
-    st.markdown(
-        f'''
-        <div>
-            <img class="full-width-banner" src="./Logo_HarveyPerformance_Primary.png">
-        </div>
-        ''',
-        unsafe_allow_html=True,
-    )
-
-    # Add main title below the image
     st.markdown('<div class="main-title">3D Printer Inventory Management</div>', unsafe_allow_html=True)
 
     # Call top navigation bar
