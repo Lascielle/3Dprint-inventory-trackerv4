@@ -4,7 +4,22 @@ import sqlite3
 
 # Main app functions (with top bar navigation included)
 def main_app():
-    st.title('3D Printer Inventory Management')
+    # Add some custom styling for the title
+    st.markdown(
+        """
+        <style>
+        .main-title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333333;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown('<div class="main-title">3D Printer Inventory Management</div>', unsafe_allow_html=True)
 
     # Call top navigation bar
     top_bar_navigation()
@@ -44,8 +59,19 @@ def view_inventory():
         st.error(f"Error retrieving inventory data: {str(e)}")
         return
 
-    # Display the inventory in a dataframe with auto-adjusted width
-    st.dataframe(inventory_data, use_container_width=True)
+    # Apply styling to the inventory table
+    styled_inventory_data = inventory_data.style \
+        .set_properties(subset=['sku', 'description'], **{'text-align': 'left', 'font-size': '14px'}) \
+        .set_properties(subset=['quantity'], **{'text-align': 'center', 'font-size': '14px'}) \
+        .set_table_styles([
+            {'selector': 'thead th', 'props': [('background-color', '#1f77b4'), ('color', 'white'), ('font-size', '16px')]},
+            {'selector': 'tbody tr:nth-child(even)', 'props': [('background-color', '#f7f7f7')]},
+            {'selector': 'tbody tr:nth-child(odd)', 'props': [('background-color', '#ffffff')]},
+        ]) \
+        .set_caption("**Current Inventory Levels**")
+
+    # Use st.dataframe to display the styled table
+    st.dataframe(styled_inventory_data, use_container_width=True)
 
 def add_sku():
     conn = sqlite3.connect('printer_inventory.db')
