@@ -148,24 +148,24 @@ def main_app():
         ''', conn)
         st.write(inventory_data)
 
-    # Top bar navigation
-    def top_bar_navigation():
-        tabs = st.tabs(["View SKU Dictionary", "Add SKU", "Edit/Delete SKU", "Transact Inventory", "View Inventory"])
+# Top bar navigation
+def top_bar_navigation():
+    tabs = st.tabs(["View Inventory", "Transact Inventory", "View SKU Dictionary", "Add SKU", "Edit/Delete SKU"])
 
-        with tabs[0]:
-            view_sku_dictionary()
+    with tabs[0]:
+        view_inventory()
 
-        with tabs[1]:
-            add_sku()
+    with tabs[1]:
+        transact_inventory()
 
-        with tabs[2]:
-            edit_sku()
+    with tabs[2]:
+        view_sku_dictionary()
 
-        with tabs[3]:
-            transact_inventory()
+    with tabs[3]:
+        add_sku()
 
-        with tabs[4]:
-            view_inventory()
+    with tabs[4]:
+        edit_sku()
 
     # Run the top bar navigation
     st.title('3D Printer Inventory Management')
