@@ -5,7 +5,7 @@ import sqlite3
 # Main app functions (with top bar navigation included)
 def main_app():
     # You can customize this to your desired layout
-    st.image('./Logo_HarveyPerformance_Primary.png', width=120)  # Adjust the width as needed
+    st.image('./Logo_HarveyPerformance_Primary.png', width=100%)  # Adjust the width as needed
 
     st.markdown(
         """
