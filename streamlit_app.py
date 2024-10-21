@@ -15,7 +15,7 @@ def main_app():
             font-size: 36px;
             font-weight: bold;
             color: #333333;
-            text-align: center;
+            text-align: left;
             margin-top: -20px;  /* Adjust margin to control spacing */
         }
         </style>
