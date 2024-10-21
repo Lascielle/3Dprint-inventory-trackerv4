@@ -29,7 +29,7 @@ def main_app():
     )
 
     # Use the local image from your repository
-    logo_path = './Harvey_Logo_Primary.png'
+    logo_path = '/Harvey_Logo_Primary.png'
 
     # Display the banner with images
     st.markdown(
