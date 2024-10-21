@@ -4,23 +4,36 @@ import sqlite3
 
 # Main app functions (with top bar navigation included)
 def main_app():
-    # You can customize this to your desired layout
-    st.image('./Logo_HarveyPerformance_Primary.png', width=100%)  # Adjust the width as needed
-
+    # Add custom CSS for a full-width image banner
     st.markdown(
         """
         <style>
+        .full-width-banner {
+            width: 100%;
+            height: auto;
+        }
         .main-title {
             font-size: 36px;
             font-weight: bold;
             color: #333333;
             text-align: center;
+            margin-top: -20px;  /* Adjust margin to control spacing */
         }
         </style>
         """,
         unsafe_allow_html=True,
     )
-    
+
+    # Use HTML to display the image with 100% width
+    st.markdown(
+        f'''
+        <div>
+            <img class="full-width-banner" src="./Logo_HarveyPerformance_Primary.png">
+        </div>
+        ''',
+        unsafe_allow_html=True,
+    )
+
     # Add main title below the image
     st.markdown('<div class="main-title">3D Printer Inventory Management</div>', unsafe_allow_html=True)
 
