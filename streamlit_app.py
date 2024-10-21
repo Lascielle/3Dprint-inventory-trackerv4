@@ -4,22 +4,43 @@ import sqlite3
 
 # Main app functions (with top bar navigation included)
 def main_app():
-    # Add some custom styling for the title
+    # Add some custom styling for the title and banner images
     st.markdown(
         """
         <style>
+        .main-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
         .main-title {
             font-size: 36px;
             font-weight: bold;
-            text-align: center;
-            margin-bottom: 25px;
             color: #333333;
+        }
+        .banner-img {
+            width: 120px;  /* Adjust this size as needed */
         }
         </style>
         """,
         unsafe_allow_html=True,
     )
-    st.markdown('<div class="main-title">3D Printer Inventory Management</div>', unsafe_allow_html=True)
+
+    # Use the local image from your repository
+    logo_path = './Harvey_Logo_Primary.png'
+
+    # Display the banner with images
+    st.markdown(
+        f'''
+        <div class="main-banner">
+            <img class="banner-img" src="{logo_path}">
+            <div class="main-title">3D Printer Inventory Management</div>
+        </div>
+        ''',
+        unsafe_allow_html=True,
+    )
 
     # Call top navigation bar
     top_bar_navigation()
