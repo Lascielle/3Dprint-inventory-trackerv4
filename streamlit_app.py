@@ -41,7 +41,7 @@ def view_inventory():
     ''', conn)
 
     def highlight_low_stock(s):
-        return ['background-color: red' if v < 5 else '' for v in s]
+        return ['background-color: red' if v < 2 else '' for v in s]
 
     # Style the table to make it more visually appealing
     styled_inventory_data = inventory_data.style \
